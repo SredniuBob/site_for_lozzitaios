@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LozzitaiOS - Ubuntu 24.04.3 Noble Numbat Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Ubuntu, system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --noble-blue: #0d6efd;
+            --noble-dark: #1a1a1a;
+            --noble-light: #f8f9fa;
+            --noble-accent: #6f42c1;
+            --noble-success: #198754;
+            --ubuntu-orange: #E95420;
+            --arm-green: #009900;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+            color: var(--noble-dark);
+            line-height: 1.6;
+        }
+
+        /* Навигация */
+        header {
+            background: var(--noble-dark);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            padding: 8px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, var(--ubuntu-orange), #ff6b35);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-noble {
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+        }
+
+        .btn-noble:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+        }
+
+        .btn-arm {
+            background: linear-gradient(135deg, var(--arm-green), #00cc00);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 153, 0, 0.3);
+        }
+
+        .btn-arm:hover {
+            background: linear-gradient(135deg, #007700, #00aa00);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 153, 0, 0.4);
+        }
+
+        .btn-ubuntu {
+            background: var(--ubuntu-orange);
+            color: white;
+            border: 2px solid var(--ubuntu-orange);
+        }
+
+        .btn-ubuntu:hover {
+            background: #c34113;
+            transform: translateY(-2px);
+        }
+
+        /* Герой-секция */
+        .hero {
+            padding: 12rem 5% 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .noble-release {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(13, 110, 253, 0.1);
+            padding: 12px 24px;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(13, 110, 253, 0.2);
+        }
+
+        .noble-release i {
+            color: var(--noble-blue);
+            font-size: 1.2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #495057;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .arch-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 2rem 0;
+        }
+
+        .arch-badge {
+            background: rgba(111, 66, 193, 0.1);
+            color: var(--noble-accent);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .arch-badge.arm {
+            background: rgba(0, 153, 0, 0.1);
+            color: var(--arm-green);
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 8px solid white;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.5s;
+        }
+
+        .hero-image img:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .floating-info {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 250px;
+        }
+
+        /* Секция нововведений */
+        .noble-features {
+            background: white;
+            padding: 6rem 5%;
+            margin: 4rem auto;
+            border-radius: 20px;
+            max-width: 1400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--noble-dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--noble-light);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--noble-blue), var(--noble-accent));
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Секция загрузки */
+        .download-section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .download-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .download-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .download-card.featured {
+            border: 2px solid var(--arm-green);
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 153, 0, 0.15);
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Футер */
+        footer {
+            background: var(--noble-dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--noble-blue);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--noble-blue);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 10rem;
+            }
+            
+            .arch-badges {
+                justify-content: center;
+            }
+            
+            .hero-image img {
+                transform: none;
+            }
+            
+            .floating-info {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin-top: 2rem;
+            }
+            
+            .download-card.featured {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <header>
+        <nav>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <span>LozzitaiOS</span>
+                <span class="version-badge">24.04.3 Noble</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="documentation.html">Документация</a>
+                <a href="#download">Скачать</a>
+                <a href="#features">Нововведения</a>
+                <a href="#community">Сообщество</a>
+            </div>
+            <div class="nav-buttons">
+                <a href="documentation.html" class="btn btn-noble">Документация</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="noble-release">
+                <i class="fas fa-star"></i>
+                <span><strong>Новый релиз!</strong> Основан на Ubuntu 24.04.3 Noble Numbat</span>
+            </div>
+            <h1>LozzitaiOS Noble Edition</h1>
+            <p>Современный дистрибутив Linux на базе <strong>Ubuntu 24.04.3 LTS Noble Numbat</strong>. Используйте все преимущества новейшего стека технологий Linux с нашим уникальным интерфейсом и оптимизациями.</p>
+            
+            <div class="arch-badges">
+                <span class="arch-badge"><i class="fas fa-microchip"></i> x86_64 (Intel/AMD)</span>
+                <span class="arch-badge arm"><i class="fas fa-microchip"></i> ARM64 (Raspberry Pi)</span>
+                <span class="arch-badge"><i class="fab fa-python"></i> Python 3.12</span>
+                <span class="arch-badge"><i class="fas fa-bolt"></i> Wayland по умолчанию</span>
+                <span class="arch-badge"><i class="fas fa-shield-alt"></i> Linux 6.8+</span>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-noble">
+                    <i class="fas fa-download"></i> Скачать 24.04.3
+                </a>
+                <a href="documentation.html" class="btn" style="background: transparent; border: 2px solid var(--noble-blue); color: var(--noble-blue);">
+                    <i class="fas fa-book"></i> Полная документация
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="LozzitaiOS Noble Edition">
+            <div class="floating-info">
+                <h4><i class="fas fa-info-circle" style="color: var(--noble-blue);"></i> Технические детали</h4>
+                <p><strong>Основа:</strong> Ubuntu 24.04.3 LTS</p>
+                <p><strong>Ядро:</strong> Linux 6.8+ HWE</p>
+                <p><strong>Поддержка:</strong> До апреля 2029</p>
+                <p><strong>Архитектуры:</strong> x86_64, ARM64</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция нововведений -->
+    <section id="features" class="noble-features">
+        <div class="section-title">
+            <h2>Что нового в 24.04.3?</h2>
+            <p>Ключевые улучшения и нововведения на базе Ubuntu Noble Numbat</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Производительность</h3>
+                <p>Оптимизированное ядро Linux 6.8 с улучшенной поддержкой современных процессоров и графики. Более быстрая загрузка и отклик системы.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Безопасность</h3>
+                <p>Обновлённые механизмы безопасности: улучшенный AppArmor, поддержка TPM 2.0, Secure Boot по умолчанию, изолированные среды исполнения.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <h3>Графический стек</h3>
+                <p>Wayland по умолчанию, поддержка HDR, улучшенная работа с несколькими мониторами, новая версия GNOME 46 с нашими модификациями.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>Поддержка ARM64</h3>
+                <p>Полноценная версия для Raspberry Pi 4/5, Orange Pi, и других ARM64 устройств. Оптимизированная работа на энергоэффективных платформах.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Для разработчиков</h3>
+                <p>Python 3.12, GCC 13, Ruby 3.2, Go 1.22, Node.js 20, последние версии Docker и Podman. Полный стек современных инструментов разработки.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>Игры и мультимедиа</h3>
+                <p>Улучшенная поддержка Steam, Wine 9.0, последние версии Mesa для игр. Поддержка AV1 кодирования и декодирования аппаратно.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция загрузки -->
+    <section id="download" class="download-section">
+        <div class="section-title">
+            <h2>Скачать LozzitaiOS</h2>
+            <p>Выберите редакцию для ваших нужд. Все версии основаны на Ubuntu 24.04.3 LTS</p>
+        </div>
+        
+        <div class="download-cards">
+            <div class="download-card">
+                <div class="card-header">
+                    <h3>Desktop Edition (скоро)</h3>
+                    <p>Для ежедневного использования</p>
+                    <span style="background: var(--noble-blue); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem;">x86_64</span>
+                </div>
+                <ul style="list-style: none; text-align: left; margin-bottom: 2rem;">
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Полный графический интерфейс</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Офисные приложения</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Мультимедиа кодеки</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Поддержка принтеров</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> 5 лет обновлений</li>
+                </ul>
+                <a href="#" class="btn btn-noble" style="width: 100%;">
+                    <i class="fas fa-download"></i> Скачать (3.2 GB)
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #6c757d;">
+                    SHA256: a1b2c3d4e5f678901234567890abcdef
+                </p>
+            </div>
+            
+            <div class="download-card featured">
+                <div class="card-header">
+                    <h3>ARM64 Edition(скоро)</h3>
+                    <p>Для Raspberry Pi и ARM устройств</p>
+                    <span style="background: var(--arm-green); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem;">АРХИТЕКТУРА ARM64</span>
+                </div>
+                <ul style="list-style: none; text-align: left; margin-bottom: 2rem;">
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Оптимизировано для Raspberry Pi</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Поддержка GPIO и датчиков</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Энергоэффективная работа</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Полный рабочий стол</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> 5 лет обновлений</li>
+                </ul>
+                <a href="#" class="btn btn-arm" style="width: 100%;">
+                    <i class="fas fa-microchip"></i> Скачать для ARM (2.8 GB)
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #6c757d;">
+                    SHA256: b2c3d4e5f678901a1bcdef234567890
+                </p>
+                <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(0, 153, 0, 0.1); border-radius: 8px;">
+                    <p style="font-size: 0.85rem; margin: 0;"><strong>Поддерживается:</strong> RPi 4/5, Orange Pi 5, Rock Pi</p>
+                </div>
+            </div>
+            
+            <div class="download-card">
+                <div class="card-header">
+                    <h3>Minimal Server(в разработке)</h3>
+                    <p>Для серверов и продвинутых</p>
+                    <span style="background: var(--noble-dark); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.8rem;">x86_64</span>
+                </div>
+                <ul style="list-style: none; text-align: left; margin-bottom: 2rem;">
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Без графики</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> SSH сервер</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Минимальный набор</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> Автоматизация</li>
+                    <li><i class="fas fa-check" style="color: var(--noble-success);"></i> 5 лет обновлений</li>
+                </ul>
+                <a href="#" class="btn" style="width: 100%; background: var(--noble-dark); color: white;">
+                    <i class="fas fa-server"></i> Скачать Server (1.8 GB)
+                </a>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #6c757d;">
+                    SHA256: c3d4e5f678901a1b2def34567890abc
+                </p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: rgba(13, 110, 253, 0.05); border-radius: 12px;">
+            <h3><i class="fas fa-microchip"></i> Требования к системе</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                <div>
+                    <h4 style="color: var(--noble-blue);">x86_64 (Intel/AMD)</h4>
+                    <p><strong>Минимальные:</strong> 64-бит CPU, 4 ГБ ОЗУ, 25 ГБ места</p>
+                    <p><strong>Рекомендуемые:</strong> 4+ ядер, 8+ ГБ ОЗУ, SSD 50+ ГБ</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--arm-green);">ARM64 (Raspberry Pi)</h4>
+                    <p><strong>RPi 4:</strong> 4 ГБ ОЗУ, microSD 32+ ГБ</p>
+                    <p><strong>RPi 5:</strong> 8 ГБ ОЗУ, SSD через USB3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer id="community">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>LozzitaiOS Noble</h3>
+                <p>Дистрибутив Linux на базе Ubuntu 24.04.3 LTS Noble Numbat. Современные технологии, стабильность и уникальный опыт.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Ресурсы</h3>
+                <ul class="footer-links">
+                    <li><a href="documentation.html">Документация</a></li>
+                    <li><a href="#">Форум</a></li>
+                    <li><a href="#">Блог разработки</a></li>
+                    <li><a href="#">Баги и предложения</a></li>
+                    <li><a href="#">Спонсорство</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Ubuntu 24.04 LTS</h3>
+                <ul class="footer-links">
+                    <li><a href="https://ubuntu.com/">Официальный сайт Ubuntu</a></li>
+                    <li><a href="http://help.ubuntu.ru/">Документация Ubuntu</a></li>
+                    <li><a href="#">Совместимость пакетов</a></li>
+                    <li><a href="#">LTS поддержка до 2029</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Связаться</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> contact@lozzitaos.org</li>
+                    <li><i class="fas fa-calendar-alt"></i> Основан на Ubuntu 24.04.3</li>
+                    <li><i class="fas fa-history"></i> Выпуск: Октябрь 2024</li>
+                    <li><i class="fas fa-shield-alt"></i> LTS до: Апрель 2029</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 LozzitaiOS Project. Основано на Ubuntu 24.04.3 LTS Noble Numbat. Linux® является зарегистрированным товарным знаком Линуса Торвальдса. Ubuntu и Canonical являются зарегистрированными товарными знаками Canonical Ltd.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const navButtons = document.querySelector('.nav-buttons');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.backgroundColor = 'var(--noble-dark)';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+            });
+        }
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Закрытие мобильного меню
+                    if(window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Анимация карточек при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаем за карточками
+        document.querySelectorAll('.feature-card, .download-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s, transform 0.5s';
+            observer.observe(card);
+        });
+
+        // Динамическое обновление года
+        document.addEventListener('DOMContentLoaded', () => {
+            const year = new Date().getFullYear();
+            const copyrightElement = document.querySelector('.copyright p');
+            if(copyrightElement) {
+                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2024', year);
+            }
+        });
+    </script>
+</body>
+</html>

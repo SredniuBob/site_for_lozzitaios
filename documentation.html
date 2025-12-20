@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация LozzitaiOS | Ubuntu 24.04.3 Noble Numbat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --noble-blue: #0d6efd;
+            --noble-dark: #212529;
+            --noble-light: #f8f9fa;
+            --noble-accent: #6f42c1;
+            --noble-success: #198754;
+            --noble-warning: #ffc107;
+            --noble-danger: #dc3545;
+            --arm-green: #009900;
+            --sidebar-width: 300px;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--noble-dark);
+        }
+
+        /* Боковая панель */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid #dee2e6;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-header {
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--noble-blue);
+        }
+
+        .sidebar-header h2 {
+            color: var(--noble-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .version-tag {
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .back-to-home {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1rem;
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--noble-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid rgba(13, 110, 253, 0.2);
+        }
+
+        .back-to-home:hover {
+            background: var(--noble-blue);
+            color: white;
+            transform: translateX(-3px);
+        }
+
+        .doc-nav {
+            list-style: none;
+        }
+
+        .doc-nav > li {
+            margin-bottom: 0.5rem;
+        }
+
+        .doc-nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1rem;
+            text-decoration: none;
+            color: var(--noble-dark);
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .doc-nav a:hover {
+            background: rgba(13, 110, 253, 0.1);
+            color: var(--noble-blue);
+            transform: translateX(5px);
+        }
+
+        .doc-nav a.active {
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+        }
+
+        .nav-section {
+            margin-top: 2rem;
+        }
+
+        .nav-section h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #6c757d;
+            margin-bottom: 0.8rem;
+            padding-left: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .sub-nav {
+            list-style: none;
+            margin-left: 1rem;
+            border-left: 2px solid #e9ecef;
+            padding-left: 0.8rem;
+        }
+
+        .sub-nav li {
+            margin-bottom: 0.4rem;
+        }
+
+        .sub-nav a {
+            padding: 0.6rem 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* Основное содержание */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem 3rem;
+            max-width: 1200px;
+        }
+
+        .doc-header {
+            background: linear-gradient(135deg, var(--noble-dark), #343a40);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .doc-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, #adb5bd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .doc-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+        }
+
+        .arch-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .arch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: var(--noble-blue);
+            text-decoration: none;
+        }
+
+        .breadcrumb .separator {
+            color: #adb5bd;
+        }
+
+        /* Секции документации */
+        .doc-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .doc-section h2 {
+            color: var(--noble-dark);
+            border-bottom: 3px solid var(--noble-blue);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 2rem;
+        }
+
+        .doc-section h3 {
+            color: var(--noble-dark);
+            margin: 2rem 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        .doc-section h4 {
+            color: #495057;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.2rem;
+        }
+
+        .doc-section p {
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+            color: #495057;
+        }
+
+        .doc-section ul, .doc-section ol {
+            margin: 1.2rem 0 1.2rem 2rem;
+        }
+
+        .doc-section li {
+            margin-bottom: 0.6rem;
+            line-height: 1.6;
+        }
+
+        /* Кодовые блоки */
+        code {
+            background: rgba(13, 110, 253, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Consolas', 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--noble-blue);
+            font-weight: 500;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', 'Monaco', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        pre::before {
+            content: 'Терминал';
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #495057;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 0 0 8px 0;
+            font-size: 0.8rem;
+        }
+
+        .command-line {
+            position: relative;
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .prompt {
+            color: #4ec9b0;
+            user-select: none;
+        }
+
+        .command {
+            color: #9cdcfe;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        /* Информационные блоки */
+        .info-box {
+            background: rgba(13, 110, 253, 0.1);
+            border-left: 4px solid var(--noble-blue);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--noble-warning);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .danger-box {
+            background: rgba(220, 53, 69, 0.1);
+            border-left: 4px solid var(--noble-danger);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: rgba(25, 135, 84, 0.1);
+            border-left: 4px solid var(--noble-success);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .arm-box {
+            background: rgba(0, 153, 0, 0.1);
+            border-left: 4px solid var(--arm-green);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 1.2rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        tr:hover {
+            background: rgba(13, 110, 253, 0.05);
+        }
+
+        /* Навигация по документу */
+        .doc-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .doc-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .doc-nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                margin-bottom: 2rem;
+                border-right: none;
+                border-bottom: 1px solid #dee2e6;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            body {
+                flex-direction: column;
+            }
+            
+            .doc-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .doc-header {
+                padding: 2rem 1.5rem;
+            }
+            
+            .doc-section {
+                padding: 1.5rem;
+            }
+            
+            .doc-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .doc-nav-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Боковая панель навигации -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>
+                <i class="fas fa-book-open"></i>
+                Документация
+                <span class="version-tag">24.04.3</span>
+            </h2>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+                <i class="fab fa-ubuntu"></i> Основано на Ubuntu Noble Numbat
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i>
+            Вернуться на главную
+        </a>
+        
+        <ul class="doc-nav">
+            <li><a href="#getting-started" class="active"><i class="fas fa-rocket"></i> Быстрый старт</a></li>
+            
+            <div class="nav-section">
+                <h3>Установка</h3>
+                <ul class="sub-nav">
+                    <li><a href="#system-requirements"><i class="fas fa-laptop"></i> Требования к системе</a></li>
+                    <li><a href="#boot-media"><i class="fas fa-usb"></i> Создание загрузочного USB</a></li>
+                    <li><a href="#installation-guide"><i class="fas fa-download"></i> Руководство по установке</a></li>
+                    <li><a href="#dual-boot"><i class="fas fa-hdd"></i> Dual Boot с Windows</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>ARM64 Версия</h3>
+                <ul class="sub-nav">
+                    <li><a href="#arm64-overview"><i class="fas fa-microchip"></i> Обзор ARM64 версии</a></li>
+                    <li><a href="#rpi-installation"><i class="fab fa-raspberry-pi"></i> Установка на Raspberry Pi</a></li>
+                    <li><a href="#arm-optimization"><i class="fas fa-cogs"></i> Оптимизация для ARM</a></li>
+                    <li><a href="#arm-troubleshooting"><i class="fas fa-tools"></i> Устранение проблем ARM</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Основы системы</h3>
+                <ul class="sub-nav">
+                    <li><a href="#package-management"><i class="fas fa-box-open"></i> Управление пакетами</a></li>
+                    <li><a href="#terminal-basics"><i class="fas fa-terminal"></i> Основы терминала</a></li>
+                    <li><a href="#system-update"><i class="fas fa-sync-alt"></i> Обновление системы</a></li>
+                    <li><a href="#user-management"><i class="fas fa-users"></i> Управление пользователями</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Сеть и Интернет</h3>
+                <ul class="sub-nav">
+                    <li><a href="#network-setup"><i class="fas fa-wifi"></i> Настройка сети</a></li>
+                    <li><a href="#firewall"><i class="fas fa-shield-alt"></i> Настройка фаервола</a></li>
+                    <li><a href="#ssh-config"><i class="fas fa-network-wired"></i> SSH и удалённый доступ</a></li>
+                    <li><a href="#vpn-setup"><i class="fas fa-user-secret"></i> Настройка VPN</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Безопасность</h3>
+                <ul class="sub-nav">
+                    <li><a href="#security-basics"><i class="fas fa-shield-alt"></i> Основы безопасности</a></li>
+                    <li><a href="#firewall-advanced"><i class="fas fa-fire"></i> Расширенный фаервол</a></li>
+                    <li><a href="#apparmor"><i class="fas fa-lock"></i> Настройка AppArmor</a></li>
+                    <li><a href="#backup-security"><i class="fas fa-save"></i> Резервное копирование</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Устранение проблем</h3>
+                <ul class="sub-nav">
+                    <li><a href="#boot-problems"><i class="fas fa-power-off"></i> Проблемы с загрузкой</a></li>
+                    <li><a href="#network-issues"><i class="fas fa-wifi"></i> Сетевые проблемы</a></li>
+                    <li><a href="#audio-problems"><i class="fas fa-volume-up"></i> Проблемы со звуком</a></li>
+                    <li><a href="#graphics-issues"><i class="fas fa-gamepad"></i> Графические проблемы</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Для разработчиков</h3>
+                <ul class="sub-nav">
+                    <li><a href="#dev-environment"><i class="fas fa-code"></i> Настройка среды разработки</a></li>
+                    <li><a href="#docker-setup"><i class="fab fa-docker"></i> Установка Docker</a></li>
+                    <li><a href="#kubernetes"><i class="fas fa-server"></i> Настройка Kubernetes</a></li>
+                    <li><a href="#web-server"><i class="fas fa-globe"></i> Веб-сервер (Nginx/Apache)</a></li>
+                </ul>
+            </div>
+            
+            <li><a href="#faq"><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</a></li>
+            <li><a href="#community"><i class="fas fa-users"></i> Сообщество и поддержка</a></li>
+        </ul>
+    </aside>
+
+    <!-- Основное содержание -->
+    <main class="main-content">
+        <div class="doc-header">
+            <h1>Полная документация LozzitaiOS 24.04.3</h1>
+            <p>Исчерпывающее руководство по установке, настройке и использованию дистрибутива на базе Ubuntu 24.04.3 LTS Noble Numbat</p>
+            <div class="arch-badges">
+                <div class="arch-badge">
+                    <i class="fas fa-microchip"></i>
+                    <span>x86_64 (Intel/AMD)</span>
+                </div>
+                <div class="arch-badge" style="background: rgba(0, 153, 0, 0.2);">
+                    <i class="fas fa-microchip"></i>
+                    <span>ARM64 (Raspberry Pi)</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="breadcrumb">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <span class="separator">/</span>
+            <span>Полная документация</span>
+            <span class="separator">/</span>
+            <span>Версия 24.04.3</span>
+        </div>
+        
+        <!-- Секция: Быстрый старт -->
+        <section id="getting-started" class="doc-section">
+            <h2><i class="fas fa-rocket"></i> Быстрый старт с LozzitaiOS</h2>
+            
+            <p>LozzitaiOS 24.04.3 — это современный дистрибутив Linux, основанный на <strong>Ubuntu 24.04.3 LTS Noble Numbat</strong>. Система предлагает стабильность LTS-релиза с актуальными обновлениями безопасности и программного обеспечения.</p>
+            
+            <div class="info-box">
+                <p><strong>Ключевые особенности версии 24.04.3:</strong></p>
+                <ul>
+                    <li>Ядро: Linux 6.8+ с улучшенной поддержкой оборудования</li>
+                    <li>Графический стек: Wayland по умолчанию для лучшей безопасности</li>
+                    <li>Python 3.12, GCC 13, GNOME 46 в стандартной поставке</li>
+                    <li>Полная поддержка ARM64 архитектуры (Raspberry Pi 4/5)</li>
+                    <li>Долгосрочная поддержка до апреля 2029 года</li>
+                </ul>
+            </div>
+            
+            <h3>С чего начать?</h3>
+            <ol>
+                <li><strong>Проверьте системные требования</strong> в соответствующем разделе</li>
+                <li><strong>Скачайте образ</strong> подходящей архитектуры (x86_64 или ARM64)</li>
+                <li><strong>Создайте загрузочный USB</strong> с помощью Rufus, BalenaEtcher или dd</li>
+                <li><strong>Загрузитесь с USB</strong> и выберите "Try LozzitaiOS" для тестирования или "Install LozzitaiOS" для установки</li>
+                <li><strong>Следуйте инструкциям установщика</strong> - процесс интуитивно понятен</li>
+            </ol>
+        </section>
+        
+        <!-- Секция: Требования к системе -->
+        <section id="system-requirements" class="doc-section">
+            <h2><i class="fas fa-laptop"></i> Требования к системе</h2>
+            
+            <h3>Минимальные требования для x86_64</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Компонент</th>
+                        <th>Минимальные</th>
+                        <th>Рекомендуемые</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Процессор</strong></td>
+                        <td>64-бит, 2 ядра 2.0 GHz</td>
+                        <td>4+ ядер, 3.0+ GHz</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ОЗУ</strong></td>
+                        <td>4 ГБ</td>
+                        <td>8+ ГБ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Хранилище</strong></td>
+                        <td>25 ГБ HDD</td>
+                        <td>128+ ГБ SSD/NVMe</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Видеокарта</strong></td>
+                        <td>OpenGL 3.3+</td>
+                        <td>Vulkan 1.2+, 2+ ГБ VRAM</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Дисплей</strong></td>
+                        <td>1366×768</td>
+                        <td>1920×1080+</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>Требования для ARM64 (Raspberry Pi)</h3>
+            <div class="arm-box">
+                <p><strong>Поддерживаемые устройства:</strong></p>
+                <ul>
+                    <li>Raspberry Pi 4 (все версии, 2+ ГБ ОЗУ)</li>
+                    <li>Raspberry Pi 5 (рекомендуется 4+ ГБ ОЗУ)</li>
+                    <li>Orange Pi 5/5B</li>
+                    <li>Rock Pi 4/5</li>
+                    <li>Другие устройства с Cortex-A72/A76/A78</li>
+                </ul>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Устройство</th>
+                        <th>ОЗУ</th>
+                        <th>Хранилище</th>
+                        <th>Особенности</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Raspberry Pi 4</strong></td>
+                        <td>2+ ГБ</td>
+                        <td>32+ ГБ microSD</td>
+                        <td>USB boot, PCIe через USB3</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Raspberry Pi 5</strong></td>
+                        <td>4+ ГБ</td>
+                        <td>SSD через PCIe или microSD</td>
+                        <td>Рекомендуется NVMe через HAT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Orange Pi 5</strong></td>
+                        <td>8+ ГБ</td>
+                        <td>NVMe или eMMC</td>
+                        <td>Лучшая производительность</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="warning-box">
+                <p><strong>Важно:</strong> Для Raspberry Pi рекомендуется использовать карты памяти Class 10/U3 или SSD через USB3 для лучшей производительности.</p>
+            </div>
+        </section>
+        
+        <!-- Секция: ARM64 Версия -->
+        <section id="arm64-overview" class="doc-section">
+            <h2><i class="fas fa-microchip"></i> ARM64 Версия для одноплатных компьютеров</h2>
+            
+            <p>LozzitaiOS ARM64 Edition специально оптимизирован для работы на одноплатных компьютерах, таких как Raspberry Pi, Orange Pi и других ARM-устройствах.</p>
+            
+            <h3>Особенности ARM64 версии</h3>
+            <div class="arm-box">
+                <ul>
+                    <li><strong>Оптимизированное ядро</strong> с поддержкой всех функций Raspberry Pi</li>
+                    <li><strong>Аппаратное ускорение</strong> для графики и видео (VC4/V3D)</li>
+                    <li><strong>Поддержка GPIO</strong> и различных датчиков через библиотеки Python</li>
+                    <li><strong>Энергоэффективная работа</strong> с управлением питанием</li>
+                    <li><strong>Предустановленные инструменты</strong> для IoT и встраиваемых систем</li>
+                </ul>
+            </div>
+            
+            <h3>Установка на Raspberry Pi</h3>
+            
+            <div class="command-line">
+                <div class="command">
+                    <span class="prompt">$ </span>lsblk
+                </div>
+                <div class="comment"># Определите имя вашего USB накопителя (обычно sdb или sdc)</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo dd if=lozzitaios-arm64-24.04.3.img of=/dev/sdX bs=4M status=progress
+                </div>
+                <div class="comment"># Замените sdX на ваше устройство (например, sdb)</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo sync
+                </div>
+                <div class="comment"># Дождитесь завершения записи</div>
+            </div>
+            
+            <h3>Настройка после установки</h3>
+            
+            <pre><code># Расширить файловую систему на всю карту
+sudo raspi-config --expand-rootfs
+
+# Включить SSH для удалённого доступа
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+# Настроить локализацию
+sudo raspi-config
+# Выберите: Localisation Options → Locale → ru_RU.UTF-8
+
+# Обновить систему
+sudo apt update && sudo apt upgrade -y</code></pre>
+            
+            <h3>Оптимизация производительности для Raspberry Pi</h3>
+            
+            <pre><code># Настроить файл подкачки (swap) для Pi с малым объёмом ОЗУ
+sudo dphys-swapfile swapoff
+sudo nano /etc/dphys-swapfile
+# Измените CONF_SWAPSIZE=2048 (для 4ГБ ОЗУ)
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon
+
+# Отключить ненужные сервисы для экономии ресурсов
+sudo systemctl disable bluetooth.service
+sudo systemctl disable hciuart.service
+
+# Оптимизировать настройки файловой системы
+sudo nano /etc/fstab
+# Добавьте: noatime,nodiratime к опциям монтирования корневого раздела
+
+# Установить ZRAM для сжатия оперативной памяти
+sudo apt install zram-tools
+sudo systemctl enable zramswap</code></pre>
+            
+            <div class="info-box">
+                <p><strong>Совет:</strong> Для Raspberry Pi 4/5 рекомендуется использовать активное охлаждение и качественный блок питания (5V/3A) для стабильной работы.</p>
+            </div>
+        </section>
+        
+        <!-- Секция: Управление пакетами -->
+        <section id="package-management" class="doc-section">
+            <h2><i class="fas fa-box-open"></i> Управление пакетами в LozzitaiOS</h2>
+            
+            <p>LozzitaiOS использует систему управления пакетами APT от Ubuntu с поддержкой всех форматов пакетов.</p>
+            
+            <h3>Основные команды APT</h3>
+            
+            <div class="command-line">
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt update
+                </div>
+                <div class="comment"># Обновить списки пакетов из репозиториев</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt upgrade
+                </div>
+                <div class="comment"># Обновить все установленные пакеты</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt full-upgrade
+                </div>
+                <div class="comment"># Полное обновление с возможным удалением пакетов</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt install package_name
+                </div>
+                <div class="comment"># Установить пакет</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt remove package_name
+                </div>
+                <div class="comment"># Удалить пакет, оставив конфигурационные файлы</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt purge package_name
+                </div>
+                <div class="comment"># Полностью удалить пакет с конфигами</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>sudo apt autoremove
+                </div>
+                <div class="comment"># Удалить неиспользуемые зависимости</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>apt search keyword
+                </div>
+                <div class="comment"># Найти пакет по ключевому слову</div><br>
+                
+                <div class="command">
+                    <span class="prompt">$ </span>apt show package_name
+                </div>
+                <div class="comment"># Показать информацию о пакете</div>
+            </div>
+            
+            <h3>Управление репозиториями</h3>
+            
+            <pre><code># Добавить PPA репозиторий
+sudo add-apt-repository ppa:repository/name
+
+# Удалить PPA репозиторий
+sudo add-apt-repository --remove ppa:repository/name
+
+# Добавить репозиторий через sources.list
+echo "deb http://archive.ubuntu.com/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/custom.list
+
+# Добавить ключ репозитория
+wget -qO - https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xKEY_ID | sudo apt-key add -
+
+# Обновить GPG ключи
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys KEY_ID</code></pre>
+            
+            <h3>Работа с deb-пакетами</h3>
+            
+            <pre><code># Установить deb-пакет локально
+sudo dpkg -i package.deb
+
+# Установить с автоматическим разрешением зависимостей
+sudo apt install ./package.deb
+
+# Просмотреть содержимое deb-пакета
+dpkg -c package.deb
+
+# Проверить установленные пакеты
+dpkg -l | grep package_name
+
+# Найти, какому пакету принадлежит файл
+dpkg -S /path/to/file</code></pre>
+            
+            <h3>Snap и Flatpak пакеты</h3>
+            
+            <div class="info-box">
+                <p>LozzitaiOS поддерживает все современные форматы пакетов:</p>
+            </div>
+            
+            <pre><code># Установка Snap (предустановлен)
+sudo snap install package-name
+
+# Установка Flatpak
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub org.app.ID
+
+# Просмотр установленных Snap
+snap list
+
+# Просмотр установленных Flatpak
+flatpak list</code></pre>
+        </section>
+        
+        <!-- Секция: Настройка сети -->
+        <section id="network-setup" class="doc-section">
+            <h2><i class="fas fa-wifi"></i> Настройка сети и подключений</h2>
+            
+            <h3>Базовая настройка сети</h3>
+            
+            <pre><code># Просмотр сетевых интерфейсов
+ip addr show
+nmcli device status
+
+# Настройка статического IP (через Netplan)
+sudo nano /etc/netplan/01-netcfg.yaml
+# Добавьте конфигурацию:
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+
+# Применить конфигурацию
+sudo netplan apply</code></pre>
+            
+            <h3>Wi-Fi подключение через терминал</h3>
+            
+            <pre><code># Просмотр доступных Wi-Fi сетей
+nmcli device wifi list
+
+# Подключение к Wi-Fi
+nmcli device wifi connect "SSID" password "password"
+
+# Подключение с сохранением
+nmcli connection add type wifi con-name "HomeWiFi" ifname wlan0 ssid "SSID"
+nmcli connection modify "HomeWiFi" wifi-sec.key-mgmt wpa-psk wifi-sec.psk "password"
+nmcli connection up "HomeWiFi"
+
+# Автоматическое подключение при загрузке
+nmcli connection modify "HomeWiFi" connection.autoconnect yes</code></pre>
+            
+            <h3>Настройка DNS</h3>
+            
+            <pre><code># Изменение DNS серверов
+sudo nano /etc/systemd/resolved.conf
+# Раскомментируйте и измените:
+DNS=8.8.8.8 8.8.4.4 1.1.1.1
+FallbackDNS=9.9.9.9 149.112.112.112
+
+# Применить изменения
+sudo systemctl restart systemd-resolved
+
+# Временное изменение DNS
+sudo resolvectl dns eth0 8.8.8.8 1.1.1.1</code></pre>
+        </section>
+        
+        <!-- Секция: Безопасность -->
+        <section id="security-basics" class="doc-section">
+            <h2><i class="fas fa-shield-alt"></i> Основы безопасности системы</h2>
+            
+            <h3>Базовая настройка безопасности</h3>
+            
+            <pre><code># Обновить систему
+sudo apt update && sudo apt upgrade -y
+
+# Установить базовые инструменты безопасности
+sudo apt install fail2ban rkhunter chkrootkit unattended-upgrades
+
+# Настроить автоматические обновления безопасности
+sudo dpkg-reconfigure -plow unattended-upgrades
+sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
+# Раскомментируйте строки с обновлениями безопасности</code></pre>
+            
+            <h3>Настройка фаервола UFW</h3>
+            
+            <pre><code># Установить и включить UFW
+sudo apt install ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Разрешить основные сервисы
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+
+# Разрешить конкретные порты
+sudo ufw allow 22/tcp
+sudo ufw allow 80,443/tcp
+sudo ufw allow from 192.168.1.0/24 to any port 22
+
+# Включить фаервол
+sudo ufw enable
+sudo ufw status verbose</code></pre>
+            
+            <h3>Настройка AppArmor</h3>
+            
+            <pre><code># Проверить статус AppArmor
+sudo aa-status
+
+# Включить/выключить профиль
+sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
+sudo aa-complain /etc/apparmor.d/usr.bin.firefox
+
+# Обновить профили AppArmor
+sudo apparmor_parser -r /etc/apparmor.d/*
+
+# Просмотр логов AppArmor
+sudo journalctl -u apparmor --since "1 hour ago"</code></pre>
+        </section>
+        
+        <!-- Секция: Для разработчиков -->
+        <section id="dev-environment" class="doc-section">
+            <h2><i class="fas fa-code"></i> Настройка среды разработки</h2>
+            
+            <h3>Установка основных инструментов</h3>
+            
+            <pre><code># Установить полный стек разработки
+sudo apt install build-essential git curl wget
+sudo apt install python3-pip python3-venv
+sudo apt install nodejs npm
+sudo apt install default-jdk maven gradle
+sudo apt install golang-go rustc cargo
+
+# Установить редакторы кода
+sudo apt install vim nano neovim
+sudo snap install code --classic
+sudo snap install pycharm-professional --classic</code></pre>
+            
+            <h3>Настройка Docker</h3>
+            
+            <pre><code># Установить Docker
+sudo apt install docker.io docker-compose
+
+# Добавить пользователя в группу docker
+sudo usermod -aG docker $USER
+
+# Включить автозапуск
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# Проверить установку
+docker --version
+docker run hello-world</code></pre>
+            
+            <h3>Настройка веб-сервера</h3>
+            
+            <pre><code># Установить Nginx
+sudo apt install nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+# Установить Apache
+sudo apt install apache2
+sudo systemctl enable apache2
+sudo systemctl start apache2
+
+# Установить PHP
+sudo apt install php-fpm php-mysql php-curl php-gd php-mbstring php-xml php-zip
+
+# Настройка виртуальных хостов
+sudo nano /etc/nginx/sites-available/example.com
+# Добавьте конфигурацию:
+server {
+    listen 80;
+    server_name example.com www.example.com;
+    root /var/www/example.com;
+    index index.html index.php;
+    
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# Активировать сайт
+sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx</code></pre>
+        </section>
+        
+        <!-- Секция: ЧаВо -->
+        <section id="faq" class="doc-section">
+            <h2><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</h2>
+            
+            <h3>Как обновить LozzitaiOS до новой версии?</h3>
+            
+            <div class="info-box">
+                <p><strong>Для обновления с версии на базе Ubuntu 22.04:</strong></p>
+                <pre><code># Сделать резервную копию важных данных
+# Обновить текущую систему
+sudo apt update && sudo apt upgrade -y
+
+# Установить утилиту обновления
+sudo apt install update-manager-core
+
+# Запустить обновление до 24.04
+sudo do-release-upgrade
+
+# Следовать инструкциям на экране</code></pre>
+            </div>
+            
+            <h3>Проблемы с драйверами NVIDIA на ARM64</h3>
+            
+            <pre><code># Для ARM64 устройств с GPU NVIDIA
+sudo apt install nvidia-jetpack
+sudo apt install nvidia-l4t-core
+
+# Настройка драйверов для Jetson
+sudo /usr/sbin/nvpmodel -m 0  # Максимальная производительность
+sudo jetson_clocks           # Разблокировка частот</code></pre>
+            
+            <h3>Как восстановить загрузчик GRUB?</h3>
+            
+            <pre><code># С Live USB запустить терминал
+sudo mount /dev/sdXY /mnt
+sudo mount /dev/sdXZ /mnt/boot/efi
+
+# Перемонтировать системные каталоги
+sudo mount --bind /dev /mnt/dev
+sudo mount --bind /dev/pts /mnt/dev/pts
+sudo mount --bind /proc /mnt/proc
+sudo mount --bind /sys /mnt/sys
+
+# Войти в chroot
+sudo chroot /mnt
+
+# Переустановить GRUB
+grub-install /dev/sdX
+update-grub
+exit
+sudo reboot</code></pre>
+            
+            <h3>Оптимизация для игр на ARM64</h3>
+            
+            <pre><code># Для Raspberry Pi 4/5
+# Установить Mesa с поддержкой Vulkan
+sudo apt install mesa-vulkan-drivers
+
+# Настроить производительность GPU
+sudo nano /boot/firmware/config.txt
+# Добавить:
+gpu_mem=256    # Для Pi 4 с 4ГБ ОЗУ
+gpu_mem=512    # Для Pi 5 с 8ГБ ОЗУ
+over_voltage=2
+arm_freq=1800  # Для Pi 4
+arm_freq=2400  # Для Pi 5</code></pre>
+        </section>
+        
+        <!-- Секция: Сообщество -->
+        <section id="community" class="doc-section">
+            <h2><i class="fas fa-users"></i> Сообщество и поддержка</h2>
+            
+            <h3>Где получить помощь?</h3>
+            
+            <div class="success-box">
+                <p><strong>Официальные каналы поддержки:</strong></p>
+                <ul>
+                    <li><strong>Форум:</strong> <a href="https://forum.lozzitaios.org">forum.lozzitaios.org</a></li>
+                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/lozzitaios/issues">github.com/lozzitaios</a></li>
+                    <li><strong>Telegram:</strong> <a href="https://t.me/lozzitaios">@lozzitaios</a></li>
+                    <li><strong>Discord:</strong> <a href="https://discord.gg/lozzitaios">discord.gg/lozzitaios</a></li>
+                    <li><strong>Документация:</strong> <a href="https://docs.lozzitaios.org">docs.lozzitaios.org</a></li>
+                </ul>
+            </div>
+            
+            <h3>Как сообщить об ошибке?</h3>
+            
+            <p>При сообщении об ошибке укажите:</p>
+            <ol>
+                <li>Версию LozzitaiOS (<code>lsb_release -a</code>)</li>
+                <li>Архитектуру (<code>uname -m</code>)</li>
+                <li>Ядро (<code>uname -r</code>)</li>
+                <li>Подробное описание проблемы</li>
+                <li>Шаги для воспроизведения</li>
+                <li>Логи ошибок (<code>journalctl -xe</code>)</li>
+            </ol>
+            
+            <h3>Вклад в развитие проекта</h3>
+            
+            <div class="info-box">
+                <p>Вы можете помочь развитию LozzitaiOS:</p>
+                <ul>
+                    <li><strong>Тестирование:</strong> Тестируйте новые версии и сообщайте об ошибках</li>
+                    <li><strong>Документация:</strong> Помогайте улучшать документацию</li>
+                    <li><strong>Перевод:</strong> Помогайте с переводом интерфейса и документации</li>
+                    <li><strong>Разработка:</strong> Участвуйте в разработке на GitHub</li>
+                    <li><strong>Поддержка:</strong> Помогайте другим пользователям на форуме</li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- Навигация по документации -->
+        <div class="doc-navigation">
+            <a href="index.html" class="doc-nav-btn">
+                <i class="fas fa-arrow-left"></i>
+                Вернуться на главную
+            </a>
+            
+            <a href="#arm64-overview" class="doc-nav-btn">
+                Далее: ARM64 Версия
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Прокрутка к секциям
+        document.querySelectorAll('.doc-nav a, .sub-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId.startsWith('#')) {
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        // Обновление активной ссылки
+                        document.querySelectorAll('.doc-nav a, .sub-nav a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        // Плавная прокрутка
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Обновление URL без перезагрузки
+                        history.pushState(null, null, targetId);
+                    }
+                }
+            });
+        });
+
+        // Автоматическое определение активной секции
+        const sections = document.querySelectorAll('.doc-section');
+        const navLinks = document.querySelectorAll('.doc-nav a, .sub-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.scrollY + 150;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if(scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Мобильная навигация
+        document.addEventListener('DOMContentLoaded', () => {
+            if(window.innerWidth <= 992) {
+                const sidebar = document.querySelector('.sidebar');
+                const toggleBtn = document.createElement('button');
+                
+                toggleBtn.innerHTML = '<i class="fas fa-bars"></i> Навигация документации';
+                toggleBtn.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    left: 20px;
+                    z-index: 1000;
+                    background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+                    color: white;
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: 500;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                `;
+                
+                document.body.appendChild(toggleBtn);
+                
+                toggleBtn.addEventListener('click', () => {
+                    sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+                });
+                
+                sidebar.style.display = 'none';
+            }
+        });
+
+        // Подсветка синтаксиса
+        document.addEventListener('DOMContentLoaded', () => {
+            // Подсветка команд в pre code
+            document.querySelectorAll('pre code, .command-line .command').forEach(block => {
+                const html = block.innerHTML;
+                
+                // Подсветка комментариев
+                const withComments = html.replace(/#(.+)/g, '<span style="color: #6a9955">#$1</span>');
+                
+                // Подсветка команд
+                const withCommands = withComments
+                    .replace(/(sudo|apt|dpkg|snap|flatpak|docker|systemctl|journalctl|nmcli|ip)/g, 
+                             '<span style="color: #d16969">$1</span>')
+                    .replace(/(git|npm|pip|python|node|java|go|rustc|cargo)/g,
+                             '<span style="color: #4ec9b0">$1</span>');
+                
+                block.innerHTML = withCommands;
+            });
+        });
+
+        // Сохранение позиции прокрутки при возврате
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('docScrollPosition', window.scrollY);
+        });
+
+        window.addEventListener('load', () => {
+            const savedPosition = localStorage.getItem('docScrollPosition');
+            if (savedPosition) {
+                window.scrollTo(0, parseInt(savedPosition));
+                localStorage.removeItem('docScrollPosition');
+            }
+        });
+
+        // Кнопка "Наверх"
+        const scrollToTopBtn = document.createElement('button');
+        scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+        scrollToTopBtn.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        `;
+        
+        document.body.appendChild(scrollToTopBtn);
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollToTopBtn.style.display = 'flex';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('mouseenter', () => {
+            scrollToTopBtn.style.transform = 'scale(1.1)';
+        });
+        
+        scrollToTopBtn.addEventListener('mouseleave', () => {
+            scrollToTopBtn.style.transform = 'scale(1)';
+        });
+    </script>
+</body>
+</html>
