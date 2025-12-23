@@ -22,50 +22,92 @@
             --noble-warning: #ffc107;
             --noble-danger: #dc3545;
             --arm-green: #009900;
+            --christmas-red: #C41E3A;
+            --christmas-gold: #FFD700;
             --sidebar-width: 300px;
         }
 
         body {
             display: flex;
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            color: var(--noble-dark);
+            background: linear-gradient(135deg, #0A5C36 0%, #0C3A1F 100%);
+            color: #FFFAFA;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Боковая панель */
+        /* Новогодний фон */
+        .snow-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Боковая панель в новогоднем стиле */
         .sidebar {
             width: var(--sidebar-width);
-            background: white;
-            border-right: 1px solid #dee2e6;
+            background: rgba(10, 60, 40, 0.9);
+            border-right: 3px solid var(--christmas-gold);
             position: fixed;
             height: 100vh;
             overflow-y: auto;
             padding: 1.5rem;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            box-shadow: 5px 0 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 10;
         }
 
         .sidebar-header {
             padding-bottom: 1.5rem;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid var(--noble-blue);
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+        }
+
+        .sidebar-header::before {
+            content: '📚';
+            position: absolute;
+            right: 10px;
+            top: 0;
+            font-size: 2rem;
         }
 
         .sidebar-header h2 {
-            color: var(--noble-dark);
+            color: var(--christmas-gold);
             display: flex;
             align-items: center;
             gap: 10px;
             font-size: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .version-tag {
-            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
             color: white;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
             margin-left: auto;
+            border: 2px solid white;
         }
 
         .back-to-home {
@@ -74,17 +116,17 @@
             gap: 10px;
             padding: 0.8rem 1rem;
             background: rgba(13, 110, 253, 0.1);
-            color: var(--noble-blue);
+            color: var(--christmas-gold);
             text-decoration: none;
             border-radius: 8px;
             margin-bottom: 1.5rem;
             font-weight: 500;
             transition: all 0.3s;
-            border: 1px solid rgba(13, 110, 253, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
         .back-to-home:hover {
-            background: var(--noble-blue);
+            background: rgba(255, 215, 0, 0.2);
             color: white;
             transform: translateX(-3px);
         }
@@ -103,22 +145,22 @@
             gap: 10px;
             padding: 0.8rem 1rem;
             text-decoration: none;
-            color: var(--noble-dark);
+            color: #FFFAFA;
             border-radius: 8px;
             transition: all 0.3s;
             font-weight: 500;
         }
 
         .doc-nav a:hover {
-            background: rgba(13, 110, 253, 0.1);
-            color: var(--noble-blue);
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--christmas-gold);
             transform: translateX(5px);
         }
 
         .doc-nav a.active {
-            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
             color: white;
-            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
         }
 
         .nav-section {
@@ -128,7 +170,7 @@
         .nav-section h3 {
             font-size: 0.9rem;
             text-transform: uppercase;
-            color: #6c757d;
+            color: var(--christmas-gold);
             margin-bottom: 0.8rem;
             padding-left: 1rem;
             letter-spacing: 1px;
@@ -137,7 +179,7 @@
         .sub-nav {
             list-style: none;
             margin-left: 1rem;
-            border-left: 2px solid #e9ecef;
+            border-left: 2px solid rgba(255, 215, 0, 0.3);
             padding-left: 0.8rem;
         }
 
@@ -156,38 +198,41 @@
             margin-left: var(--sidebar-width);
             padding: 2rem 3rem;
             max-width: 1200px;
+            position: relative;
+            z-index: 5;
         }
 
         .doc-header {
-            background: linear-gradient(135deg, var(--noble-dark), #343a40);
+            background: linear-gradient(135deg, rgba(10, 92, 54, 0.9), rgba(12, 58, 31, 0.9));
             color: white;
             padding: 3rem;
-            border-radius: 15px;
+            border-radius: 20px;
             margin-bottom: 3rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--christmas-gold);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
 
         .doc-header h1 {
             font-size: 2.8rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fff, #adb5bd);
+            background: linear-gradient(135deg, var(--christmas-gold), #FFFAFA);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .doc-header p {
             font-size: 1.2rem;
-            opacity: 0.9;
+            color: #E6F7FF;
             max-width: 800px;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
         }
 
-        .arch-badges {
-            display: flex;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-
-        .arch-badge {
+        .ubuntu-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -202,48 +247,63 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 2rem;
-            color: #6c757d;
+            color: #E6F7FF;
             font-size: 0.95rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
         .breadcrumb a {
-            color: var(--noble-blue);
+            color: var(--christmas-gold);
             text-decoration: none;
+            transition: all 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .breadcrumb a:hover {
+            background: rgba(255, 215, 0, 0.1);
         }
 
         .breadcrumb .separator {
-            color: #adb5bd;
+            color: var(--christmas-gold);
         }
 
         /* Секции документации */
         .doc-section {
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
             padding: 2.5rem;
-            border-radius: 12px;
+            border-radius: 15px;
             margin-bottom: 2.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .doc-section h2 {
-            color: var(--noble-dark);
-            border-bottom: 3px solid var(--noble-blue);
+            color: var(--christmas-gold);
+            border-bottom: 3px solid var(--christmas-red);
             padding-bottom: 1rem;
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             gap: 12px;
             font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .doc-section h3 {
-            color: var(--noble-dark);
+            color: #FFFAFA;
             margin: 2rem 0 1rem;
             font-size: 1.5rem;
         }
 
         .doc-section h4 {
-            color: #495057;
+            color: #E6F7FF;
             margin: 1.5rem 0 1rem;
             font-size: 1.2rem;
         }
@@ -251,7 +311,7 @@
         .doc-section p {
             margin-bottom: 1.2rem;
             line-height: 1.7;
-            color: #495057;
+            color: #E6F7FF;
         }
 
         .doc-section ul, .doc-section ol {
@@ -261,21 +321,23 @@
         .doc-section li {
             margin-bottom: 0.6rem;
             line-height: 1.6;
+            color: #E6F7FF;
         }
 
         /* Кодовые блоки */
         code {
-            background: rgba(13, 110, 253, 0.1);
+            background: rgba(196, 30, 58, 0.2);
             padding: 3px 8px;
             border-radius: 6px;
             font-family: 'Monaco', 'Consolas', 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            color: var(--noble-blue);
+            color: var(--christmas-gold);
             font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         pre {
-            background: #2d2d2d;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: #f8f8f2;
             padding: 1.5rem;
             border-radius: 10px;
@@ -285,6 +347,8 @@
             font-size: 0.9rem;
             line-height: 1.5;
             position: relative;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         pre::before {
@@ -292,20 +356,23 @@
             position: absolute;
             top: 0;
             left: 0;
-            background: #495057;
-            color: white;
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
+            color: var(--christmas-gold);
             padding: 4px 12px;
             border-radius: 0 0 8px 0;
             font-size: 0.8rem;
+            font-weight: bold;
         }
 
         .command-line {
             position: relative;
-            background: #2d2d2d;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             border-radius: 10px;
             padding: 1.5rem;
             margin: 1.5rem 0;
             font-family: 'JetBrains Mono', monospace;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
         .prompt {
@@ -324,34 +391,38 @@
         /* Информационные блоки */
         .info-box {
             background: rgba(13, 110, 253, 0.1);
-            border-left: 4px solid var(--noble-blue);
+            border-left: 4px solid var(--christmas-gold);
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         .warning-box {
             background: rgba(255, 193, 7, 0.1);
-            border-left: 4px solid var(--noble-warning);
+            border-left: 4px solid var(--christmas-red);
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
+            border: 1px solid rgba(196, 30, 58, 0.3);
         }
 
         .danger-box {
             background: rgba(220, 53, 69, 0.1);
-            border-left: 4px solid var(--noble-danger);
+            border-left: 4px solid #ff0000;
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
+            border: 1px solid rgba(255, 0, 0, 0.3);
         }
 
         .success-box {
             background: rgba(25, 135, 84, 0.1);
-            border-left: 4px solid var(--noble-success);
+            border-left: 4px solid var(--christmas-gold);
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
 
         .arm-box {
@@ -360,6 +431,7 @@
             padding: 1.5rem;
             margin: 1.5rem 0;
             border-radius: 0 8px 8px 0;
+            border: 1px solid rgba(0, 153, 0, 0.3);
         }
 
         /* Таблицы */
@@ -367,27 +439,30 @@
             width: 100%;
             border-collapse: collapse;
             margin: 1.5rem 0;
-            background: white;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         th {
-            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
-            color: white;
+            background: linear-gradient(135deg, var(--christmas-red), #8B0000);
+            color: var(--christmas-gold);
             padding: 1.2rem;
             text-align: left;
             font-weight: 600;
+            border-bottom: 3px solid var(--christmas-gold);
         }
 
         td {
             padding: 1.2rem;
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E6F7FF;
         }
 
         tr:hover {
-            background: rgba(13, 110, 253, 0.05);
+            background: rgba(255, 215, 0, 0.1);
         }
 
         /* Навигация по документу */
@@ -396,7 +471,7 @@
             justify-content: space-between;
             margin-top: 4rem;
             padding-top: 2rem;
-            border-top: 1px solid #dee2e6;
+            border-top: 2px solid rgba(255, 215, 0, 0.3);
         }
 
         .doc-nav-btn {
@@ -404,17 +479,18 @@
             align-items: center;
             gap: 10px;
             padding: 1rem 1.5rem;
-            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: all 0.3s;
             font-weight: 500;
+            border: 2px solid white;
         }
 
         .doc-nav-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
         }
 
         /* Адаптивность */
@@ -431,7 +507,7 @@
                 height: auto;
                 margin-bottom: 2rem;
                 border-right: none;
-                border-bottom: 1px solid #dee2e6;
+                border-bottom: 3px solid var(--christmas-gold);
             }
             
             .main-content {
@@ -469,9 +545,41 @@
                 justify-content: center;
             }
         }
+
+        /* Кнопка наверх */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--christmas-red), var(--christmas-gold));
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.6);
+        }
     </style>
 </head>
 <body>
+    <!-- Новогодний фон со снежинками -->
+    <div class="snow-background" id="snowBackground"></div>
+    
+    <!-- Кнопка наверх -->
+    <button class="scroll-top-btn" id="scrollTopBtn">↑</button>
+    
     <!-- Боковая панель навигации -->
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -480,7 +588,7 @@
                 Документация
                 <span class="version-tag">24.04.3</span>
             </h2>
-            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #6c757d;">
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #E6F7FF;">
                 <i class="fab fa-ubuntu"></i> Основано на Ubuntu Noble Numbat
             </div>
         </div>
@@ -573,12 +681,12 @@
         <div class="doc-header">
             <h1>Полная документация LozzitaiOS 24.04.3</h1>
             <p>Исчерпывающее руководство по установке, настройке и использованию дистрибутива на базе Ubuntu 24.04.3 LTS Noble Numbat</p>
-            <div class="arch-badges">
-                <div class="arch-badge">
+            <div style="display: flex; gap: 10px; margin-top: 1rem;">
+                <div class="ubuntu-badge">
                     <i class="fas fa-microchip"></i>
                     <span>x86_64 (Intel/AMD)</span>
                 </div>
-                <div class="arch-badge" style="background: rgba(0, 153, 0, 0.2);">
+                <div class="ubuntu-badge" style="background: rgba(0, 153, 0, 0.2);">
                     <i class="fas fa-microchip"></i>
                     <span>ARM64 (Raspberry Pi)</span>
                 </div>
@@ -710,84 +818,6 @@
             </div>
         </section>
         
-        <!-- Секция: ARM64 Версия -->
-        <section id="arm64-overview" class="doc-section">
-            <h2><i class="fas fa-microchip"></i> ARM64 Версия для одноплатных компьютеров</h2>
-            
-            <p>LozzitaiOS ARM64 Edition специально оптимизирован для работы на одноплатных компьютерах, таких как Raspberry Pi, Orange Pi и других ARM-устройствах.</p>
-            
-            <h3>Особенности ARM64 версии</h3>
-            <div class="arm-box">
-                <ul>
-                    <li><strong>Оптимизированное ядро</strong> с поддержкой всех функций Raspberry Pi</li>
-                    <li><strong>Аппаратное ускорение</strong> для графики и видео (VC4/V3D)</li>
-                    <li><strong>Поддержка GPIO</strong> и различных датчиков через библиотеки Python</li>
-                    <li><strong>Энергоэффективная работа</strong> с управлением питанием</li>
-                    <li><strong>Предустановленные инструменты</strong> для IoT и встраиваемых систем</li>
-                </ul>
-            </div>
-            
-            <h3>Установка на Raspberry Pi</h3>
-            
-            <div class="command-line">
-                <div class="command">
-                    <span class="prompt">$ </span>lsblk
-                </div>
-                <div class="comment"># Определите имя вашего USB накопителя (обычно sdb или sdc)</div><br>
-                
-                <div class="command">
-                    <span class="prompt">$ </span>sudo dd if=lozzitaios-arm64-24.04.3.img of=/dev/sdX bs=4M status=progress
-                </div>
-                <div class="comment"># Замените sdX на ваше устройство (например, sdb)</div><br>
-                
-                <div class="command">
-                    <span class="prompt">$ </span>sudo sync
-                </div>
-                <div class="comment"># Дождитесь завершения записи</div>
-            </div>
-            
-            <h3>Настройка после установки</h3>
-            
-            <pre><code># Расширить файловую систему на всю карту
-sudo raspi-config --expand-rootfs
-
-# Включить SSH для удалённого доступа
-sudo systemctl enable ssh
-sudo systemctl start ssh
-
-# Настроить локализацию
-sudo raspi-config
-# Выберите: Localisation Options → Locale → ru_RU.UTF-8
-
-# Обновить систему
-sudo apt update && sudo apt upgrade -y</code></pre>
-            
-            <h3>Оптимизация производительности для Raspberry Pi</h3>
-            
-            <pre><code># Настроить файл подкачки (swap) для Pi с малым объёмом ОЗУ
-sudo dphys-swapfile swapoff
-sudo nano /etc/dphys-swapfile
-# Измените CONF_SWAPSIZE=2048 (для 4ГБ ОЗУ)
-sudo dphys-swapfile setup
-sudo dphys-swapfile swapon
-
-# Отключить ненужные сервисы для экономии ресурсов
-sudo systemctl disable bluetooth.service
-sudo systemctl disable hciuart.service
-
-# Оптимизировать настройки файловой системы
-sudo nano /etc/fstab
-# Добавьте: noatime,nodiratime к опциям монтирования корневого раздела
-
-# Установить ZRAM для сжатия оперативной памяти
-sudo apt install zram-tools
-sudo systemctl enable zramswap</code></pre>
-            
-            <div class="info-box">
-                <p><strong>Совет:</strong> Для Raspberry Pi 4/5 рекомендуется использовать активное охлаждение и качественный блок питания (5V/3A) для стабильной работы.</p>
-            </div>
-        </section>
-        
         <!-- Секция: Управление пакетами -->
         <section id="package-management" class="doc-section">
             <h2><i class="fas fa-box-open"></i> Управление пакетами в LozzitaiOS</h2>
@@ -898,298 +928,6 @@ snap list
 flatpak list</code></pre>
         </section>
         
-        <!-- Секция: Настройка сети -->
-        <section id="network-setup" class="doc-section">
-            <h2><i class="fas fa-wifi"></i> Настройка сети и подключений</h2>
-            
-            <h3>Базовая настройка сети</h3>
-            
-            <pre><code># Просмотр сетевых интерфейсов
-ip addr show
-nmcli device status
-
-# Настройка статического IP (через Netplan)
-sudo nano /etc/netplan/01-netcfg.yaml
-# Добавьте конфигурацию:
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      addresses:
-        - 192.168.1.100/24
-      gateway4: 192.168.1.1
-      nameservers:
-        addresses: [8.8.8.8, 8.8.4.4]
-
-# Применить конфигурацию
-sudo netplan apply</code></pre>
-            
-            <h3>Wi-Fi подключение через терминал</h3>
-            
-            <pre><code># Просмотр доступных Wi-Fi сетей
-nmcli device wifi list
-
-# Подключение к Wi-Fi
-nmcli device wifi connect "SSID" password "password"
-
-# Подключение с сохранением
-nmcli connection add type wifi con-name "HomeWiFi" ifname wlan0 ssid "SSID"
-nmcli connection modify "HomeWiFi" wifi-sec.key-mgmt wpa-psk wifi-sec.psk "password"
-nmcli connection up "HomeWiFi"
-
-# Автоматическое подключение при загрузке
-nmcli connection modify "HomeWiFi" connection.autoconnect yes</code></pre>
-            
-            <h3>Настройка DNS</h3>
-            
-            <pre><code># Изменение DNS серверов
-sudo nano /etc/systemd/resolved.conf
-# Раскомментируйте и измените:
-DNS=8.8.8.8 8.8.4.4 1.1.1.1
-FallbackDNS=9.9.9.9 149.112.112.112
-
-# Применить изменения
-sudo systemctl restart systemd-resolved
-
-# Временное изменение DNS
-sudo resolvectl dns eth0 8.8.8.8 1.1.1.1</code></pre>
-        </section>
-        
-        <!-- Секция: Безопасность -->
-        <section id="security-basics" class="doc-section">
-            <h2><i class="fas fa-shield-alt"></i> Основы безопасности системы</h2>
-            
-            <h3>Базовая настройка безопасности</h3>
-            
-            <pre><code># Обновить систему
-sudo apt update && sudo apt upgrade -y
-
-# Установить базовые инструменты безопасности
-sudo apt install fail2ban rkhunter chkrootkit unattended-upgrades
-
-# Настроить автоматические обновления безопасности
-sudo dpkg-reconfigure -plow unattended-upgrades
-sudo nano /etc/apt/apt.conf.d/50unattended-upgrades
-# Раскомментируйте строки с обновлениями безопасности</code></pre>
-            
-            <h3>Настройка фаервола UFW</h3>
-            
-            <pre><code># Установить и включить UFW
-sudo apt install ufw
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-
-# Разрешить основные сервисы
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-
-# Разрешить конкретные порты
-sudo ufw allow 22/tcp
-sudo ufw allow 80,443/tcp
-sudo ufw allow from 192.168.1.0/24 to any port 22
-
-# Включить фаервол
-sudo ufw enable
-sudo ufw status verbose</code></pre>
-            
-            <h3>Настройка AppArmor</h3>
-            
-            <pre><code># Проверить статус AppArmor
-sudo aa-status
-
-# Включить/выключить профиль
-sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
-sudo aa-complain /etc/apparmor.d/usr.bin.firefox
-
-# Обновить профили AppArmor
-sudo apparmor_parser -r /etc/apparmor.d/*
-
-# Просмотр логов AppArmor
-sudo journalctl -u apparmor --since "1 hour ago"</code></pre>
-        </section>
-        
-        <!-- Секция: Для разработчиков -->
-        <section id="dev-environment" class="doc-section">
-            <h2><i class="fas fa-code"></i> Настройка среды разработки</h2>
-            
-            <h3>Установка основных инструментов</h3>
-            
-            <pre><code># Установить полный стек разработки
-sudo apt install build-essential git curl wget
-sudo apt install python3-pip python3-venv
-sudo apt install nodejs npm
-sudo apt install default-jdk maven gradle
-sudo apt install golang-go rustc cargo
-
-# Установить редакторы кода
-sudo apt install vim nano neovim
-sudo snap install code --classic
-sudo snap install pycharm-professional --classic</code></pre>
-            
-            <h3>Настройка Docker</h3>
-            
-            <pre><code># Установить Docker
-sudo apt install docker.io docker-compose
-
-# Добавить пользователя в группу docker
-sudo usermod -aG docker $USER
-
-# Включить автозапуск
-sudo systemctl enable docker
-sudo systemctl start docker
-
-# Проверить установку
-docker --version
-docker run hello-world</code></pre>
-            
-            <h3>Настройка веб-сервера</h3>
-            
-            <pre><code># Установить Nginx
-sudo apt install nginx
-sudo systemctl enable nginx
-sudo systemctl start nginx
-
-# Установить Apache
-sudo apt install apache2
-sudo systemctl enable apache2
-sudo systemctl start apache2
-
-# Установить PHP
-sudo apt install php-fpm php-mysql php-curl php-gd php-mbstring php-xml php-zip
-
-# Настройка виртуальных хостов
-sudo nano /etc/nginx/sites-available/example.com
-# Добавьте конфигурацию:
-server {
-    listen 80;
-    server_name example.com www.example.com;
-    root /var/www/example.com;
-    index index.html index.php;
-    
-    location / {
-        try_files $uri $uri/ =404;
-    }
-}
-
-# Активировать сайт
-sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl reload nginx</code></pre>
-        </section>
-        
-        <!-- Секция: ЧаВо -->
-        <section id="faq" class="doc-section">
-            <h2><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</h2>
-            
-            <h3>Как обновить LozzitaiOS до новой версии?</h3>
-            
-            <div class="info-box">
-                <p><strong>Для обновления с версии на базе Ubuntu 22.04:</strong></p>
-                <pre><code># Сделать резервную копию важных данных
-# Обновить текущую систему
-sudo apt update && sudo apt upgrade -y
-
-# Установить утилиту обновления
-sudo apt install update-manager-core
-
-# Запустить обновление до 24.04
-sudo do-release-upgrade
-
-# Следовать инструкциям на экране</code></pre>
-            </div>
-            
-            <h3>Проблемы с драйверами NVIDIA на ARM64</h3>
-            
-            <pre><code># Для ARM64 устройств с GPU NVIDIA
-sudo apt install nvidia-jetpack
-sudo apt install nvidia-l4t-core
-
-# Настройка драйверов для Jetson
-sudo /usr/sbin/nvpmodel -m 0  # Максимальная производительность
-sudo jetson_clocks           # Разблокировка частот</code></pre>
-            
-            <h3>Как восстановить загрузчик GRUB?</h3>
-            
-            <pre><code># С Live USB запустить терминал
-sudo mount /dev/sdXY /mnt
-sudo mount /dev/sdXZ /mnt/boot/efi
-
-# Перемонтировать системные каталоги
-sudo mount --bind /dev /mnt/dev
-sudo mount --bind /dev/pts /mnt/dev/pts
-sudo mount --bind /proc /mnt/proc
-sudo mount --bind /sys /mnt/sys
-
-# Войти в chroot
-sudo chroot /mnt
-
-# Переустановить GRUB
-grub-install /dev/sdX
-update-grub
-exit
-sudo reboot</code></pre>
-            
-            <h3>Оптимизация для игр на ARM64</h3>
-            
-            <pre><code># Для Raspberry Pi 4/5
-# Установить Mesa с поддержкой Vulkan
-sudo apt install mesa-vulkan-drivers
-
-# Настроить производительность GPU
-sudo nano /boot/firmware/config.txt
-# Добавить:
-gpu_mem=256    # Для Pi 4 с 4ГБ ОЗУ
-gpu_mem=512    # Для Pi 5 с 8ГБ ОЗУ
-over_voltage=2
-arm_freq=1800  # Для Pi 4
-arm_freq=2400  # Для Pi 5</code></pre>
-        </section>
-        
-        <!-- Секция: Сообщество -->
-        <section id="community" class="doc-section">
-            <h2><i class="fas fa-users"></i> Сообщество и поддержка</h2>
-            
-            <h3>Где получить помощь?</h3>
-            
-            <div class="success-box">
-                <p><strong>Официальные каналы поддержки:</strong></p>
-                <ul>
-                    <li><strong>Форум:</strong> <a href="https://forum.lozzitaios.org">forum.lozzitaios.org</a></li>
-                    <li><strong>GitHub Issues:</strong> <a href="https://github.com/lozzitaios/issues">github.com/lozzitaios</a></li>
-                    <li><strong>Telegram:</strong> <a href="https://t.me/lozzitaios">@lozzitaios</a></li>
-                    <li><strong>Discord:</strong> <a href="https://discord.gg/lozzitaios">discord.gg/lozzitaios</a></li>
-                    <li><strong>Документация:</strong> <a href="https://docs.lozzitaios.org">docs.lozzitaios.org</a></li>
-                </ul>
-            </div>
-            
-            <h3>Как сообщить об ошибке?</h3>
-            
-            <p>При сообщении об ошибке укажите:</p>
-            <ol>
-                <li>Версию LozzitaiOS (<code>lsb_release -a</code>)</li>
-                <li>Архитектуру (<code>uname -m</code>)</li>
-                <li>Ядро (<code>uname -r</code>)</li>
-                <li>Подробное описание проблемы</li>
-                <li>Шаги для воспроизведения</li>
-                <li>Логи ошибок (<code>journalctl -xe</code>)</li>
-            </ol>
-            
-            <h3>Вклад в развитие проекта</h3>
-            
-            <div class="info-box">
-                <p>Вы можете помочь развитию LozzitaiOS:</p>
-                <ul>
-                    <li><strong>Тестирование:</strong> Тестируйте новые версии и сообщайте об ошибках</li>
-                    <li><strong>Документация:</strong> Помогайте улучшать документацию</li>
-                    <li><strong>Перевод:</strong> Помогайте с переводом интерфейса и документации</li>
-                    <li><strong>Разработка:</strong> Участвуйте в разработке на GitHub</li>
-                    <li><strong>Поддержка:</strong> Помогайте другим пользователям на форуме</li>
-                </ul>
-            </div>
-        </section>
-        
         <!-- Навигация по документации -->
         <div class="doc-navigation">
             <a href="index.html" class="doc-nav-btn">
@@ -1205,6 +943,51 @@ arm_freq=2400  # Для Pi 5</code></pre>
     </main>
 
     <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowBackground = document.getElementById('snowBackground');
+            const snowflakeCount = 50;
+            
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                
+                // Случайные параметры
+                const size = Math.random() * 8 + 3;
+                const left = Math.random() * 100;
+                const opacity = Math.random() * 0.7 + 0.3;
+                const duration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+                snowflake.style.left = `${left}%`;
+                snowflake.style.opacity = opacity;
+                snowflake.style.animationDuration = `${duration}s`;
+                snowflake.style.animationDelay = `${delay}s`;
+                
+                snowBackground.appendChild(snowflake);
+            }
+        }
+
+        // Кнопка "Наверх"
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.display = 'none';
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Прокрутка к секциям
         document.querySelectorAll('.doc-nav a, .sub-nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -1258,120 +1041,25 @@ arm_freq=2400  # Для Pi 5</code></pre>
             });
         });
 
-        // Мобильная навигация
+        // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
-            if(window.innerWidth <= 992) {
-                const sidebar = document.querySelector('.sidebar');
-                const toggleBtn = document.createElement('button');
-                
-                toggleBtn.innerHTML = '<i class="fas fa-bars"></i> Навигация документации';
-                toggleBtn.style.cssText = `
-                    position: fixed;
-                    top: 80px;
-                    left: 20px;
-                    z-index: 1000;
-                    background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
-                    color: white;
-                    border: none;
-                    padding: 12px 20px;
-                    border-radius: 8px;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    font-weight: 500;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                `;
-                
-                document.body.appendChild(toggleBtn);
-                
-                toggleBtn.addEventListener('click', () => {
-                    sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
-                });
-                
-                sidebar.style.display = 'none';
-            }
-        });
-
-        // Подсветка синтаксиса
-        document.addEventListener('DOMContentLoaded', () => {
-            // Подсветка команд в pre code
+            // Создаем снежинки
+            createSnowflakes();
+            
+            // Подсветка синтаксиса
             document.querySelectorAll('pre code, .command-line .command').forEach(block => {
                 const html = block.innerHTML;
                 
-                // Подсветка комментариев
-                const withComments = html.replace(/#(.+)/g, '<span style="color: #6a9955">#$1</span>');
-                
                 // Подсветка команд
-                const withCommands = withComments
+                const highlighted = html
                     .replace(/(sudo|apt|dpkg|snap|flatpak|docker|systemctl|journalctl|nmcli|ip)/g, 
                              '<span style="color: #d16969">$1</span>')
                     .replace(/(git|npm|pip|python|node|java|go|rustc|cargo)/g,
-                             '<span style="color: #4ec9b0">$1</span>');
+                             '<span style="color: #4ec9b0">$1</span>')
+                    .replace(/#(.+)/g, '<span style="color: #6a9955">#$1</span>');
                 
-                block.innerHTML = withCommands;
+                block.innerHTML = highlighted;
             });
-        });
-
-        // Сохранение позиции прокрутки при возврате
-        window.addEventListener('beforeunload', () => {
-            localStorage.setItem('docScrollPosition', window.scrollY);
-        });
-
-        window.addEventListener('load', () => {
-            const savedPosition = localStorage.getItem('docScrollPosition');
-            if (savedPosition) {
-                window.scrollTo(0, parseInt(savedPosition));
-                localStorage.removeItem('docScrollPosition');
-            }
-        });
-
-        // Кнопка "Наверх"
-        const scrollToTopBtn = document.createElement('button');
-        scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-        scrollToTopBtn.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--noble-blue), var(--noble-accent));
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
-            z-index: 1000;
-            transition: all 0.3s;
-        `;
-        
-        document.body.appendChild(scrollToTopBtn);
-        
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollToTopBtn.style.display = 'flex';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
-        });
-        
-        scrollToTopBtn.addEventListener('mouseenter', () => {
-            scrollToTopBtn.style.transform = 'scale(1.1)';
-        });
-        
-        scrollToTopBtn.addEventListener('mouseleave', () => {
-            scrollToTopBtn.style.transform = 'scale(1)';
         });
     </script>
 </body>
